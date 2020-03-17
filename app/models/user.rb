@@ -9,6 +9,8 @@ class User < ApplicationRecord
     VALID_PASWAD_REGEX = /\A[a-zA-Z0-9]+\z/
     validates :password, presence: true, format: {with: VALID_PASWAD_REGEX}
     
-     has_many :topics
-     
+     has_many :topics, dependent: :destroy
+     has_many :favorites, dependent: :destroy
+     has_many :favorite_topics, through: :favorites, source: 'topic'
+     has_many :comments
 end
